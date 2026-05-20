@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
+import fs from 'fs';
 import dotenv from 'dotenv';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,11 +21,17 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
 
-const swaggerDocument = YAML.load("./src/docs/swagger.yaml");
+const swaggerPath = path.resolve(__dirname, 'docs/swagger.yaml');
+const swaggerFallbackPath = path.resolve(__dirname, '../src/docs/swagger.yaml');
+const swaggerDocument = YAML.load(fs.existsSync(swaggerPath) ? swaggerPath : swaggerFallbackPath);
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("dev"));

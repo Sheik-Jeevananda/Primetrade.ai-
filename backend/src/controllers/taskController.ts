@@ -1,4 +1,4 @@
-import {type Response } from "express";
+import type {Response } from "express";
 
 import Task from "../models/Task.js";
 import type { AuthRequest } from "../middleware/authMiddleware.js";

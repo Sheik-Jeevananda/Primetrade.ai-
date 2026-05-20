@@ -1,4 +1,4 @@
-import {type Response, type NextFunction } from "express";
+import type {Response, NextFunction } from "express";
 import type { AuthRequest } from "./authMiddleware.js";
 
 export const adminOnly = (
